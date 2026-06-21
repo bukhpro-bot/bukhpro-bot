@@ -1,0 +1,24 @@
+name: bukhpro-bot
+definition:
+  name: bukhpro-bot
+  services:
+    - name: bot
+      type: web
+      build:
+        type: dockerfile
+        dockerfile: Dockerfile
+      ports:
+        - port: 8080
+          protocol: http
+      health_checks:
+        - type: http
+          port: 8080
+          path: /health
+          interval: 30
+          timeout: 5
+      autoscaling:
+        min: 1
+        max: 1
+      instance_types:
+        - name: nano
+      deployment_group: default
